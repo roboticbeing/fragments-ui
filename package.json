@@ -7,7 +7,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "parcel",
-    "build": "parcel build"
+    "build": "parcel build",
+    "lint": "eslint --config .eslintrc.js src/**"
   },
   "repository": {
     "type": "git",
@@ -16,7 +17,9 @@
   "author": "Jessica Krishtul <jkrishtul@myseneca.ca>",
   "license": "UNLICENSED",
   "devDependencies": {
+    "eslint": "^8.23.1",
     "parcel": "latest",
+    "prettier": "2.7.1",
     "process": "^0.11.10",
     "querystring-es3": "^0.2.1"
   },
