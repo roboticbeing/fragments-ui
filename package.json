@@ -1,0 +1,26 @@
+{
+  "name": "fragments-ui",
+  "private": true,
+  "version": "0.0.1",
+  "description": "The front-end to the Fragments project",
+  "source": "src/index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "parcel",
+    "build": "parcel build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/roboticbeing/fragments-ui.git"
+  },
+  "author": "Jessica Krishtul <jkrishtul@myseneca.ca>",
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "parcel": "latest",
+    "process": "^0.11.10",
+    "querystring-es3": "^0.2.1"
+  },
+  "dependencies": {
+    "aws-amplify": "^4.3.35"
+  }
+}
