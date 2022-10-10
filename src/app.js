@@ -1,13 +1,18 @@
 // src/app.js
 
 import { Auth, getUser } from './auth';
-import { getUserFragments } from './api';
+import { getUserFragments, postFragments } from './api';
+import { button } from 'aws-amplify';
 
 async function init() {
   // Get our UI elements
   const userSection = document.querySelector('#user');
   const loginBtn = document.querySelector('#login');
   const logoutBtn = document.querySelector('#logout');
+  const fragmentTxt = document.querySelector('#fragment');
+  const submit = document.getElementById('submit');
+
+
 
   // Wire up event handlers to deal with login and logout.
   loginBtn.onclick = () => {
@@ -20,6 +25,7 @@ async function init() {
     // https://docs.amplify.aws/lib/auth/emailpassword/q/platform/js/#sign-out
     Auth.signOut();
   };
+
 
   // See if we're signed in (i.e., we'll have a `user` object)
   const user = await getUser();
@@ -43,6 +49,8 @@ async function init() {
 
   // Disable the Login button
   loginBtn.disabled = true;
+
+  submit.onsubmit = postFragments(user, fragmentTxt);
 }
 
 // Wait for the DOM to be ready, then start the app
