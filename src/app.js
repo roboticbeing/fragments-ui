@@ -1,7 +1,7 @@
 // src/app.js
 
 import { Auth, getUser } from './auth';
-import { getUserFragments, postFragments } from './api';
+import { getUserFragments, getUserFragmentsExpanded, postFragments } from './api';
 import { button } from 'aws-amplify';
 
 async function init() {
@@ -9,9 +9,7 @@ async function init() {
   const userSection = document.querySelector('#user');
   const loginBtn = document.querySelector('#login');
   const logoutBtn = document.querySelector('#logout');
-  const fragmentTxt = document.querySelector('#fragment');
-  const submit = document.getElementById('submit');
-
+  const formEl = document.querySelector('.form');
 
 
   // Wire up event handlers to deal with login and logout.
@@ -41,6 +39,8 @@ async function init() {
   // Log the user info for debugging purposes
   console.log({ user });
 
+  console.log(getUserFragmentsExpanded(user));
+
   // Update the UI to welcome the user
   userSection.hidden = false;
 
@@ -50,7 +50,12 @@ async function init() {
   // Disable the Login button
   loginBtn.disabled = true;
 
-  submit.onsubmit = postFragments(user, fragmentTxt);
+  formEl.addEventListener('submit', event => {
+    event.preventDefault();
+    const formData = new FormData(formEl);
+    console.log('Posted: ' + formData.get('fragment') + ' with content-type: ' + formData.get('type'));
+    postFragments(user, formData.get('fragment'), formData.get('type'));
+  })
 }
 
 // Wait for the DOM to be ready, then start the app

@@ -14,8 +14,16 @@
     <section hidden id="user">
       <h2>Hello <span class="username"></span>!</h2>
       <h2>Create a Fragment</h2>
-      <form>
-        <input type="text" id="fragment" name="fragment">
+      <form class="form">
+        <label for="type">Choose a content-type:</label>
+        <select name="type" id="type">
+          <option value="text/plain">text/plain</option>
+          <option value="text/markdown">text/markdown</option>
+          <option value="text/html">text/html</option>
+          <option value="application/json">application/json</option>
+        </select>
+        <br><br>
+        <input type="text" name="fragment">
         <input type="submit" value="Submit" id="submit">
       </form>
     </section>
