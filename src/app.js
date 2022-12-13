@@ -1,8 +1,8 @@
 // src/app.js
 
 import { Auth, getUser } from './auth';
-import { getUserFragments, getUserFragmentsExpanded, postFragments } from './api';
-import { button } from 'aws-amplify';
+import { getUserFragments, getUserFragmentsExpanded, postFragments, deleteFragments } from './api';
+import {CheckList} from './dom';
 
 async function init() {
   // Get our UI elements
@@ -10,7 +10,8 @@ async function init() {
   const loginBtn = document.querySelector('#login');
   const logoutBtn = document.querySelector('#logout');
   const formEl = document.querySelector('.form');
-
+  const formEl2 = document.querySelector('.form2');
+  var checkedBoxes = document.querySelectorAll('input[name=mycheckboxes]:checked');
 
   // Wire up event handlers to deal with login and logout.
   loginBtn.onclick = () => {
@@ -24,11 +25,13 @@ async function init() {
     Auth.signOut();
   };
 
-
   // See if we're signed in (i.e., we'll have a `user` object)
   const user = await getUser();
+  const fragment = await getUserFragments(user);
 
-  getUserFragments(user);
+  CheckList(fragment.fragments);
+
+  
 
   if (!user) {
     // Disable the Logout button
@@ -55,6 +58,14 @@ async function init() {
     const formData = new FormData(formEl);
     console.log('Posted: ' + formData.get('fragment') + ' with content-type: ' + formData.get('type'));
     postFragments(user, formData.get('fragment'), formData.get('type'));
+  })
+
+  formEl2.addEventListener('submit', event => {
+    event.preventDefault();
+    console.log(checkedBoxes.innerText)
+   // const formData = new FormData(formEl2);
+    //console.log('Deleted: ' + formData.get('action') + ' with content-type: ' + formData.get('type'));
+   // deleteFragments(user, checkedBoxes.innerText);
   })
 }
 

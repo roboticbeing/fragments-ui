@@ -20,6 +20,7 @@ export async function getUserFragments(user) {
     }
     const data = await res.json();
     console.log('Got user fragments data', { data });
+    return data;
   } catch (err) {
     console.error('Unable to call GET /v1/fragment', { err });
   }
@@ -60,5 +61,24 @@ export async function postFragments(user, fragment, type) {
     console.log('Posted fragments data', { data });
   } catch (err) {
     console.error('Unable to call POST /v1/fragment', { err });
+  }
+}
+
+export async function deleteFragments(user, id) {
+  console.log('Delete fragments data...');
+  try {
+    const res = await fetch(`${apiUrl}/v1/fragments/${id}`, {
+      // Generate headers with the proper Authorization bearer token to pass
+      headers: {'Authorization': 'Bearer ' + user.idToken
+              },
+      method: 'DELETE'
+    });
+    if (!res.ok) {
+      throw new Error(`${res.status} ${res.statusText}`);
+    }
+    const data = await res.json();
+    console.log('Deleted fragments data', { data });
+  } catch (err) {
+    console.error('Unable to call DELETE /v1/fragment', { err });
   }
 }
