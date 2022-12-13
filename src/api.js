@@ -82,3 +82,22 @@ export async function deleteFragments(user, id) {
     console.error('Unable to call DELETE /v1/fragment', { err });
   }
 }
+
+export async function updateFragments(user, id) {
+  console.log('Update fragments data...');
+  try {
+    const res = await fetch(`${apiUrl}/v1/fragments/${id}`, {
+      // Generate headers with the proper Authorization bearer token to pass
+      headers: {'Authorization': 'Bearer ' + user.idToken
+              },
+      method: 'PUT'
+    });
+    if (!res.ok) {
+      throw new Error(`${res.status} ${res.statusText}`);
+    }
+    const data = await res.json();
+    console.log('Updated fragments data', { data });
+  } catch (err) {
+    console.error('Unable to call PUT /v1/fragment', { err });
+  }
+}
